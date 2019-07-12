@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   
-    
+    final TextEditingController controller;
     final IconData icon;
     final String hintText;
     final String labelText;
@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
     final Function validator;
     final bool obscureText;
 
-    CustomTextFormField(this.icon, this.hintText, this.labelText, this.keyboardType, this.validator, { this.obscureText: false });
+    CustomTextFormField(this.controller, this.icon, this.hintText, this.labelText, this.keyboardType, this.validator, {this.obscureText: false });
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,17 @@ class CustomTextFormField extends StatelessWidget {
     final theme = Theme.of(context);
     
     return Theme(
-      data: theme.copyWith(primaryColor: Colors.white, hintColor: Colors.grey[800], errorColor: Colors.redAccent),
+      data: theme.copyWith(
+        primaryColor: Theme.of(context).accentColor, 
+        hintColor: Colors.white, 
+        errorColor: Colors.red
+      ),
       child: TextFormField(
-        style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.bold),
+        style: TextStyle(color: Colors.white),
+        controller: controller,
         decoration: InputDecoration(
           suffixIcon: Icon(icon),
-          errorStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          errorStyle: TextStyle(fontSize: 14),
           hintText: hintText,
           labelText: labelText
         ),

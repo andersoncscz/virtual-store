@@ -70,8 +70,9 @@ class ProductTile extends StatelessWidget {
               flex: 1,
               child: Container(
                 padding: EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                child: Center(
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       product.title, 
@@ -87,6 +88,7 @@ class ProductTile extends StatelessWidget {
                     ),
                   ],
                 ),
+                )
               ),
             ),
           ],

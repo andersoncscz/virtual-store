@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_store/screens/login/login_signin_screen.dart';
 
-enum FormMode { LOGIN, SIGNUP }
-
 class LoginScreen extends StatefulWidget {
+
+  LoginScreen({Key key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

@@ -19,11 +19,7 @@ class CategoryTile extends StatelessWidget {
       ),
       title: Text(snapshot.data['title']),
       trailing: Icon(Icons.keyboard_arrow_right),
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CategoryScreen(snapshot)
-        ));
-      },
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CategoryScreen(snapshot)))
     );
   }
 }

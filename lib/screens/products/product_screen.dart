@@ -1,10 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_store/data/cart_product_data.dart';
 import 'package:virtual_store/data/product_data.dart';
+import 'package:virtual_store/models/cart_model.dart';
+import 'package:virtual_store/screens/cart/shopping_cart_button.dart';
 
 class ProductScreen extends StatefulWidget {
 
   final ProductData product;
+
   ProductScreen(this.product);
 
   @override
@@ -16,6 +20,8 @@ class _ProductScreenState extends State<ProductScreen> {
   final ProductData product;
   String _sizeSelected;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   
   _ProductScreenState(this.product);
 
@@ -25,9 +31,13 @@ class _ProductScreenState extends State<ProductScreen> {
     final _primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(product.title),
         centerTitle: true,
+        actions: <Widget>[
+          ShoppingCartButton(),
+        ],        
       ),
       body: ListView(
         children: <Widget>[
@@ -83,11 +93,11 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 44,
                   child: RaisedButton(
                     onPressed: _sizeSelected != null 
-                      ? () {} 
+                      ? _handleAddProduct
                       : null,
                     color: _primaryColor,
                     textColor: Colors.white,
-                    child: Text('Adicionar ao Carrinho', style: TextStyle(fontSize: 18)),
+                    child: Text('ADICIONAR AO CARRINHO', style: TextStyle(fontSize: 18)),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -98,6 +108,36 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _handleAddProduct() {
+    CartProduct cartProduct = CartProduct();
+    
+    cartProduct.size = _sizeSelected;
+    cartProduct.quantity = 1;
+    cartProduct.productId = product.id;
+    cartProduct.category = product.category;
+    cartProduct.productData = product;
+
+    CartModel.of(context).addItem(cartProduct, _onAddProductSuccess, _onAddProductFail);
+  }
+
+  void _onAddProductSuccess() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 1),
+        content: const Text('Item adicionado ao carrinho!'),
+      )
+    );
+  }  
+
+  void _onAddProductFail() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: const Text('Erro ao adicionar ao carrinho!'),
+      )
     );
   }
 }
