@@ -26,6 +26,8 @@ class _LoginSignInScreenState extends State<LoginSignInScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -42,7 +44,7 @@ class _LoginSignInScreenState extends State<LoginSignInScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 20),
                     child: Container(
-                      height: 170,
+                      height: screenSize.height * 0.35,
                       child: Image.asset('assets/images/logo.png', fit: BoxFit.scaleDown),
                     )
                   ),

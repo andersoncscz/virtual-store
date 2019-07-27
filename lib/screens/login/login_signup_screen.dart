@@ -30,6 +30,9 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -39,16 +42,19 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
             key: _formKey,
             autovalidate: _autoValidate,
             child: ListView(
-              padding: EdgeInsets.only(top: 52,left: 22, right: 22),
+              padding: EdgeInsets.only(left: 22, right: 22),
               children: <Widget>[
                 SizedBox(height: 2),
-                GestureDetector(
-                  onTap: _handleProfilePicture,
-                  child: Center(
-                    child: CircleAvatar(
-                      maxRadius: 50,
-                      backgroundColor: Theme.of(context).primaryColorLight,
-                      backgroundImage: _profilePicture != null ? FileImage(_profilePicture) : AssetImage('assets/images/camera.png'),
+                Container(
+                  height: screenSize.height * 0.3,
+                  child: GestureDetector(
+                    onTap: _handleProfilePicture,
+                    child: Center(
+                      child: CircleAvatar(
+                        maxRadius: 50,
+                        backgroundColor: Theme.of(context).primaryColorLight,
+                        backgroundImage: _profilePicture != null ? FileImage(_profilePicture) : AssetImage('assets/images/camera.png'),
+                      ),
                     ),
                   ),
                 ),
